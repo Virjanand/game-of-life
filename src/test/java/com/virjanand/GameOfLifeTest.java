@@ -37,7 +37,7 @@ public class GameOfLifeTest {
     }
 
     @AfterEach
-    void resetStandardOut() {
+    void restoreStandardOut() {
         System.setOut(originalOut);
     }
 }
