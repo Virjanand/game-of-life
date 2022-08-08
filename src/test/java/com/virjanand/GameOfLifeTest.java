@@ -1,5 +1,7 @@
 package com.virjanand;
 
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayOutputStream;
@@ -14,19 +16,28 @@ public class GameOfLifeTest {
             "....*...\n" +
             "...**...\n" +
             "........";
+    private ByteArrayOutputStream output;
+    private PrintStream originalOut;
 
-    @Test
-    void printStartingPosition() {
-        PrintStream originalOut = System.out;
-        ByteArrayOutputStream output = new ByteArrayOutputStream();
+    @BeforeEach
+    void redirectStandardOut() {
+        originalOut = System.out;
+        output = new ByteArrayOutputStream();
 
         System.setOut(new PrintStream(output));
 
+    }
+
+    @Test
+    void printStartingPosition() {
         GameOfLife gameOfLife = new GameOfLife(STARTING_POSITION);
         gameOfLife.printPosition();
 
         assertThat(output.toString()).isEqualTo(STARTING_POSITION);
+    }
 
+    @AfterEach
+    void resetStandardOut() {
         System.setOut(originalOut);
     }
 }
