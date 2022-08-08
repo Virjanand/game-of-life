@@ -9,6 +9,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class GameOfLifeTest {
 
+    public static final String STARTING_POSITION = "" +
+            "........\n" +
+            "....*...\n" +
+            "...**...\n" +
+            "........";
+
     @Test
     void printStartingPosition() {
         PrintStream originalOut = System.out;
@@ -16,14 +22,10 @@ public class GameOfLifeTest {
 
         System.setOut(new PrintStream(output));
 
-        GameOfLife gameOfLife = new GameOfLife();
+        GameOfLife gameOfLife = new GameOfLife(STARTING_POSITION);
         gameOfLife.printPosition();
 
-        assertThat(output.toString()).isEqualTo("" +
-                "........\n" +
-                "....*...\n" +
-                "...**...\n" +
-                "........");
+        assertThat(output.toString()).isEqualTo(STARTING_POSITION);
 
         System.setOut(originalOut);
     }
